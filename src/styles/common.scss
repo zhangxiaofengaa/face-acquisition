@@ -1,0 +1,82 @@
+[class*=page] {
+  min-height: 100%;
+  background-color: $--background-color;
+  word-wrap: break-word;
+  word-break: break-all;
+} 
+
+.one-level-title {
+  font-size: $--font-size-extra-large;
+  font-weight: $--font-weight-bold;
+}
+
+.two-level-title {
+  font-size: $--font-size-medium;
+  font-weight: $--font-weight-bold;
+}
+
+.desc-content {
+  color: $--color-gray2;
+  font-size: $--font-size-base;
+  margin-top: 14px;
+  letter-spacing: 2px;
+}
+
+.button-main {
+  width: 100%;
+  height: 128px;
+  background-color: $--background-white;
+  position: fixed;
+  bottom: 0;
+  box-shadow: inset 0px 1px 0px 0px #EEEEEE;
+  padding: 20px 32px;
+  box-sizing: border-box;
+
+  .van-button {
+    width: 100%;
+    height: 88px;
+    border-radius: 4px;
+    font-size: $--font-size-large;
+  }
+
+  .van-uploader, .van-uploader__input-wrapper {
+    width: 100%;
+  }
+}
+
+
+// 人脸照片
+.uploader-entrance {
+  width: 128px;
+  height: 128px;
+  background-color: $--color-gray5;
+  border: 1px dotted $--color-gray3;
+  border-radius: 4px;
+  position: relative;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+.uploader-entrance::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 56px;
+  margin-left: -28px;
+  margin-top: -5px;
+  border-top: 5px solid;
+  color: $--color-gray3;
+}
+
+.uploader-entrance::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 56px;
+  margin-left: -5px;
+  margin-top: -28px;
+  border-left: 5px solid;
+  color: $--color-gray3;
+}
