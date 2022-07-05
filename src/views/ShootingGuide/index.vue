@@ -1,5 +1,6 @@
 <template>
   <div class="guide-page">
+    <SubmitPicture></SubmitPicture>
     <div class="correct-panel">
       <img src="@/assets/image/demonstration.png" class="correct-pic" />
       <div>

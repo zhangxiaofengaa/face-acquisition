@@ -43,7 +43,18 @@
   color: $--color-gray3;
 }
 
+
+// button
 .van-button--info {
   background-color: $--color-blue !important;
-  border-color: $--color-blue;
+  border: none !important;
+}
+.van-button--small {
+  min-width: 146px !important;
+  height: 70px !important;
+  padding: 0 42px 0 36px !important;
+  
+}
+.van-button__text {
+  font-size: $--font-size-large;
 }

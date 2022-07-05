@@ -34,14 +34,14 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach(async (to, from, next) => {
-  if(store.state.userInfo) next()
-  if (isDD) {
-    await getCode(store.dispatch('getUserInfo'))
-  } else {
-// 
-  }
-})
+// router.beforeEach(async (to, from, next) => {
+//   if(store.state.userInfo) next()
+//   if (isDD) {
+//     await getCode(store.dispatch('getUserInfo'))
+//   } else {
+// // 
+//   }
+// })
 
 
 export default router
