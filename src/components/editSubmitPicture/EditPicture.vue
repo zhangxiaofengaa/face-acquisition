@@ -1,7 +1,7 @@
 <template>
   <div class="edit-picture">
     <vue-cropper
-      :img="picture"
+      :img="src"
       ref="cropper"
       :outputSize="option.outputSize"
       :outputType="option.outputType"
@@ -23,7 +23,7 @@
       :mode="option.mode"
       @realTime="realTime"
     ></vue-cropper>
-    <img :src="rotate" class="rotate" @click="rotateLeft">
+    <img :src="rotate" class="rotate" @click="rotateLeft" />
     <div class="btn-main">
       <div class="font-btn">取消</div>
       <div class="font-btn" :class="{'color-gray': edited}">还原</div>
@@ -34,7 +34,7 @@
 <script>
 import { VueCropper } from 'vue-cropper'
 import { Overlay, Button } from 'vant'
-import rotate from  '@imgs/rotate.png'
+import rotate from '@imgs/rotate.png'
 
 export default {
   name: 'EditPicture',
@@ -53,6 +53,7 @@ export default {
     return {
       rotate,
       edited: false,
+      src: 'https://ts1.cn.mm.bing.net/th?id=OIP-C.6Lv1RQrwV88Jz3Mz82doIgHaD_&w=340&h=183&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2',
       option: {
         img: '', // 裁剪图片的地址 url 地址, base64, blob
         outputSize: 1, // 裁剪生成图片的质量
@@ -60,7 +61,7 @@ export default {
         info: true, // 裁剪框的大小信息
         canScale: true, // 图片是否允许滚轮缩放
         autoCrop: true, // 是否默认生成截图框
-        autoCropWidth: 200 , // 默认生成截图框宽度
+        autoCropWidth: 200, // 默认生成截图框宽度
         autoCropHeight: 200, // 默认生成截图框高度
         fixedBox: false, // 固定截图框大小 不允许改变
         fixed: false,
@@ -78,7 +79,7 @@ export default {
   watch: {
     'option.autoCropWidth': {
       handler(val) {
-        console.log('=========',val)
+        console.log('=========', val)
         if (!this.edited) this.edited = true
       }
     },
@@ -94,7 +95,7 @@ export default {
     rotateLeft() {
       this.$refs.cropper.rotateLeft()
     },
-    realTime (data) {
+    realTime(data) {
       this.previews = data
     },
   }
@@ -102,7 +103,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .edit-picture {
+  width: 100%;
   height: 100%;
+  background: $--background-black;
   display: flex;
   flex-direction: column;
 
@@ -114,7 +117,7 @@ export default {
     height: 40px;
     margin-left: 43px;
     margin-bottom: 102px;
-  } 
+  }
   .btn-main {
     z-index: 99;
     padding: 0 32px 43px;
@@ -126,7 +129,7 @@ export default {
       color: $--color-white;
     }
     .color-gray {
-      color: #5D5D5D;
+      color: #5d5d5d;
     }
   }
 }

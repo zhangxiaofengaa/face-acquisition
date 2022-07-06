@@ -1,18 +1,19 @@
 <template>
-  <van-overlay :show="true">
-    <div class="submit-mian" v-if="showSubmit">
-      <div class="pre"></div>
-      <div class="picture">
-        <img :src="src" class="img">
+  <div class="submit-picture-main">
+    <van-overlay :show="true"  v-if="showSubmit">
+      <div class="submit-panel" >
+        <div class="pre" @click="returnGuidePage"></div>
+        <div class="picture">
+          <img :src="src" class="img" />
+        </div>
+        <div class="edit-submit">
+          <span class="edit" @click="edit">编辑</span>
+          <van-button type="info" size="small">提交</van-button>
+        </div>
       </div>
-      <div class="edit-submit">
-        <span class="edit" @click="edit">编辑</span>
-        <van-button type="info" size="small">提交</van-button>
-      </div>
-    </div>
-    
+    </van-overlay>
     <EditPicture :picture="src" v-else></EditPicture>
-  </van-overlay>
+  </div>
 </template>
 <script>
 import { Overlay, Button } from 'vant'
@@ -25,7 +26,7 @@ export default {
   },
   data() {
     return {
-      showSubmit: false,
+      showSubmit: true,
       // src: 'https://ts1.cn.mm.bing.net/th?id=OIP-C.iilMusn3clq4IvVfdvzjOwHaKe&w=210&h=297&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2'
       src: 'https://ts1.cn.mm.bing.net/th?id=OIP-C.6Lv1RQrwV88Jz3Mz82doIgHaD_&w=340&h=183&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2'
     }
@@ -33,15 +34,25 @@ export default {
   methods: {
     edit() {
       this.showSubmit = false
+    },
+    returnGuidePage() {
+      this.$emit('returnGuidePage')
     }
   }
 }
 </script>
 <style lang="scss" scoped>
+.submit-picture-main {
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  position: fixed;
+  top: 0;
+}
 .van-overlay {
   background-color: $--background-black;
 }
-.submit-mian {
+.submit-panel {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -91,6 +102,5 @@ export default {
       font-size: $--font-size-large;
     }
   }
-} 
-
+}
 </style>

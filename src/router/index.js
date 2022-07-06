@@ -25,7 +25,14 @@ const routes = [
     name: 'ShootingGuide',
     meta: { title: '拍摄指引' },
     component: r => require.ensure([], () => r(require('@/views/ShootingGuide/index.vue')), 'face')
-  }
+  },
+  // {
+  //   path: '/',
+  //   // path: '/shooting-guide',
+  //   name: 'Test',
+  //   meta: { title: 'Test' },
+  //   component: r => require.ensure([], () => r(require('@/views/ShootingGuide/index.vue')), 'face')
+  // }
 ]
 
 const router = new VueRouter({

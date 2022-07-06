@@ -1,4 +1,5 @@
 .guide-page {
+  height: 100%;
   display: flex;
   flex-direction: column;
 
@@ -47,4 +48,30 @@
       }
     }  
   }
+
+  .upload-btn {
+    width: 100%;
+    height: 88px;
+    position: relative;
+    background-color: $--color-blue;
+    text-align: center;
+
+    .txt {
+      line-height: 88px;
+      color: $--color-white;
+      font-size: $--font-size-large;
+    }
+
+    .upload-card-input {
+      width: 100%;
+      height: 100%;
+      background: pink;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      opacity: 0;
+    }
+  }
+  
 }

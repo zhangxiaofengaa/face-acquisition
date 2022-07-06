@@ -1,6 +1,5 @@
 <template>
   <div class="guide-page">
-    <SubmitPicture></SubmitPicture>
     <div class="correct-panel">
       <img src="@/assets/image/demonstration.png" class="correct-pic" />
       <div>
@@ -19,10 +18,20 @@
       </div>
     </div>
     <div class="button-main">
-      <van-uploader :after-read="afterRead">
-        <van-button type="info">开始采集</van-button>
-      </van-uploader>
+      <div class="upload-btn">
+        <span class="txt">开始采集</span>
+        <input
+          class="upload-card-input"
+          ref="upload_file"
+          type="file"
+          name="pic"
+          accept="image/jpeg, image/jpg, image/png"
+          @change="afterRead($event)"
+        />
+      </div>
     </div>
+
+    <SubmitPicture v-if="showSubmitPanel" @returnGuidePage="returnGuidePage"></SubmitPicture>
   </div>
 </template>
 
@@ -38,6 +47,7 @@ export default {
   },
   data() {
     return {
+      showSubmitPanel: false,
       errorPicList: [
         { url: require('@/assets/image/error-demonstration1.png'), desc: '五官遮挡'},
         { url: require('@/assets/image/error-demonstration2.png'), desc: '光线太暗'},
@@ -48,8 +58,12 @@ export default {
   },
   methods: {
     afterRead(file) {
+      this.showSubmitPanel = true
       console.log('???????')
       console.log('file.......', file)
+    },
+    returnGuidePage() {
+       this.showSubmitPanel = false
     }
   }
 }
