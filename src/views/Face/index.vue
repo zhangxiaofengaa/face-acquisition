@@ -6,14 +6,11 @@
       <van-field required disabled v-model="form.password" name="身份证号" label="身份证号" placeholder="根据身份证自动识别" />
       <van-field required v-model="form.pic" name="人脸照片" label="人脸照片">
         <template #input>
-          <div class="uploader-entrance" @click="jumpGuidePage" v-if="!imgUrl"></div>
-          <div class="face-pic" v-else>
+          <div class="uploader-entrance" @click="jumpGuidePage" v-if="!faceImgUrl"></div>
+          <div class="face-pic-main" v-else>
             <div class="delete-button" @click="deletePic"><van-icon name="cross" class="delete-icon" /></div>
-            <img :src="imgUrl" class="pic" />
+            <img :src="faceImgUrl" class="pic" @click="imagePreview(faceImgUrl)" />
           </div>
-          
-          
-          <!-- <van-uploader ref="uploader" v-model="fileList" multiple :max-count="1" @click-upload="uploader" :before-read="beforeRead" /> -->
         </template>
       </van-field>
       <div class="button-main">
@@ -25,7 +22,7 @@
 
 <script>
 import { Auth } from './components'
-import { Form, Field, Button, Uploader, Icon  } from 'vant'
+import { Form, Field, Button, Uploader, Icon, ImagePreview } from 'vant'
 import { EventBus } from "@/utils/eventBus"
 
 export default {
@@ -36,6 +33,7 @@ export default {
     [Button.name]: Button,
     [Uploader.name]: Uploader,
     [Icon .name]: Icon, 
+    [ImagePreview.name]: ImagePreview,
     Auth
   },
   data() {
@@ -45,7 +43,7 @@ export default {
         password: '',
         pic: '',
       },
-      imgUrl: 'https://ts1.cn.mm.bing.net/th?id=OIP-C.6Lv1RQrwV88Jz3Mz82doIgHaD_&w=340&h=183&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2',
+      faceImgUrl: 'https://ts1.cn.mm.bing.net/th?id=OIP-C.6Lv1RQrwV88Jz3Mz82doIgHaD_&w=340&h=183&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2',
       fileList: []
     }
   },
@@ -60,7 +58,7 @@ export default {
   },
   created() {
     EventBus.$on("imgUrl", (msg) => {
-      this.imgUrl = msg
+      this.faceImgUrl = msg
     })
   },
   methods: {
@@ -70,6 +68,12 @@ export default {
     beforeRead() {
       console.log('???????????')
     },
+    imagePreview(images) {
+      ImagePreview({
+        showIndex: false,
+        images: [images]
+      })
+    },
     onSubmit() {
       console.log('=====', this.$refs['uploader'].beforeRead)
     },
@@ -78,13 +82,13 @@ export default {
       this.$router.push('shooting-guide')
     },
     deletePic() {
-      this.imgUrl = null
+      this.faceImgUrl = null
     },
   }
 }
 </script>
 <style lang="scss" scoped>
-.face-pic {
+.face-pic-main {
   width: 160px;
   height: 160px;
   border-radius: 4px;

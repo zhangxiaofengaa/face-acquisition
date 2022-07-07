@@ -10,7 +10,7 @@
       
     </div>
     <div class="tips">
-      没带证件？<span class="color-blue">使用学工号采集备份</span>
+      没带证件？<span class="color-blue" @click="jumpStudentWorkNoPage">使用学工号采集备份</span>
     </div>
   </div>
 </template>
@@ -20,6 +20,11 @@ export default {
   methods: {
     jumpCommonProblemPage() {
       this.$router.push('common-problem')
+    },
+    // 跳转学工号登录页面
+    jumpStudentWorkNoPage() {
+      // 先对接统一登陆 成功后跳转页面
+      this.$router.push('student-work-no')
     }
   },
 }
