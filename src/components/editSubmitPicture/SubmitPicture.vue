@@ -8,7 +8,7 @@
         </div>
         <div class="edit-submit">
           <span class="edit" @click="edit">编辑</span>
-          <van-button type="info" size="small">提交</van-button>
+          <van-button type="info" size="small" @click="goBack">提交</van-button>
         </div>
       </div>
     </van-overlay>
@@ -17,6 +17,7 @@
 </template>
 <script>
 import { Overlay, Button } from 'vant'
+import { EventBus } from "@/utils/eventBus"
 
 export default {
   name: 'SubmitPicture',
@@ -32,10 +33,11 @@ export default {
   },
   data() {
     return {
-      showSubmit: true,
-      // src: 'https://ts1.cn.mm.bing.net/th?id=OIP-C.iilMusn3clq4IvVfdvzjOwHaKe&w=210&h=297&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2'
-      src: 'https://ts1.cn.mm.bing.net/th?id=OIP-C.6Lv1RQrwV88Jz3Mz82doIgHaD_&w=340&h=183&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2'
+      showSubmit: true
     }
+  },
+  destroyed(){
+    EventBus.$emit("imgUrl", this.facePicture)
   },
   methods: {
     edit() {
@@ -45,9 +47,11 @@ export default {
       this.$emit('returnGuidePage')
     },
     finish(val) {
-      console.log('val',val)
-      this.$emit('update:facePicture', val)
-      this.showSubmit = true
+      this.$emit('update:facePicture',val)
+      this.goBack()
+    },
+    goBack() {
+      this.$router.back()
     }
   }
 }

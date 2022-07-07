@@ -6,10 +6,10 @@
       <van-field required disabled v-model="form.password" name="身份证号" label="身份证号" placeholder="根据身份证自动识别" />
       <van-field required v-model="form.pic" name="人脸照片" label="人脸照片">
         <template #input>
-          <div class="uploader-entrance" @click="jumpGuidePage" v-if="!src"></div>
+          <div class="uploader-entrance" @click="jumpGuidePage" v-if="!imgUrl"></div>
           <div class="face-pic" v-else>
             <div class="delete-button" @click="deletePic"><van-icon name="cross" class="delete-icon" /></div>
-            <img :src="src" class="pic" />
+            <img :src="imgUrl" class="pic" />
           </div>
           
           
@@ -26,6 +26,7 @@
 <script>
 import { Auth } from './components'
 import { Form, Field, Button, Uploader, Icon  } from 'vant'
+import { EventBus } from "@/utils/eventBus"
 
 export default {
   name: 'Face',
@@ -44,7 +45,7 @@ export default {
         password: '',
         pic: '',
       },
-      src: 'https://ts1.cn.mm.bing.net/th?id=OIP-C.6Lv1RQrwV88Jz3Mz82doIgHaD_&w=340&h=183&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2',
+      imgUrl: 'https://ts1.cn.mm.bing.net/th?id=OIP-C.6Lv1RQrwV88Jz3Mz82doIgHaD_&w=340&h=183&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2',
       fileList: []
     }
   },
@@ -56,6 +57,11 @@ export default {
       }
       return false
     }
+  },
+  created() {
+    EventBus.$on("imgUrl", (msg) => {
+      this.imgUrl = msg
+    })
   },
   methods: {
     uploader() {
@@ -72,15 +78,15 @@ export default {
       this.$router.push('shooting-guide')
     },
     deletePic() {
-      this.src = null
+      this.imgUrl = null
     },
   }
 }
 </script>
 <style lang="scss" scoped>
 .face-pic {
-  width: 128px;
-  height: 128px;
+  width: 160px;
+  height: 160px;
   border-radius: 4px;
   position: relative;
   margin: 8px 0;

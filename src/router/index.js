@@ -8,9 +8,10 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/Face',
+    path: '/',
     name: 'Face',
     meta: { title: '人脸采集' },
+    keepAlive: true,
     component: r => require.ensure([], () => r(require('@/views/Face/index.vue')), 'face')
   },
   {
@@ -20,11 +21,16 @@ const routes = [
     component: r => require.ensure([], () => r(require('@/views/StudentWorkNo/index.vue')), 'face')
   },
   {
-    path: '/',
-    // path: '/shooting-guide',
+    path: '/shooting-guide',
     name: 'ShootingGuide',
     meta: { title: '拍摄指引' },
     component: r => require.ensure([], () => r(require('@/views/ShootingGuide/index.vue')), 'face')
+  },
+  {
+    path: '/common-problem',
+    name: 'CommonProblem',
+    meta: { title: '常见问题' },
+    component: r => require.ensure([], () => r(require('@/views/CommonProblem/index.vue')), 'face')
   },
   // {
   //   path: '/',

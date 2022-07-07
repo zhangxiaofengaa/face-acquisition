@@ -28,7 +28,7 @@
     <div class="btn-main">
       <div class="font-btn">取消</div>
       <div class="font-btn" :class="{'color-gray': !openReduction}" @click="reset">还原</div>
-      <van-button type="info" size="small" @click="finish">完成</van-button>
+      <van-button type="info" size="small" @click="goBack">完成</van-button>
     </div>
   </div>
 </template>
@@ -54,7 +54,6 @@ export default {
     return {
       rotate,
       openReduction: false,
-      src: 'https://ts1.cn.mm.bing.net/th?id=OIP-C.6Lv1RQrwV88Jz3Mz82doIgHaD_&w=340&h=183&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2',
       option: {
         img: '', // 裁剪图片的地址 url 地址, base64, blob
         outputSize: 1, // 裁剪生成图片的质量
@@ -76,9 +75,8 @@ export default {
         mode: '90% auto%', // 图片默认渲染方式 contain , cover, 100px, 100% auto
       },
       cropMovingCount: 0,
+      imgUrl: ''
     }
-  },
-  mounted() {
   },
   methods: {
     rotateLeft() {
@@ -86,6 +84,7 @@ export default {
       this.openReduction = true
     },
     realTime(data) {
+      // 需要获取初始剪裁框大小来判断 这里先写死
       if (data.h > 200 || data.w > 200) {
         this.openReduction = true
       }
@@ -97,17 +96,15 @@ export default {
       if (this.cropMovingCount > 1) {
         this.openReduction = true
       }
-      
     },
     reset() {
       this.$refs.cropper.refresh()
       this.openReduction = false
       this.cropMovingCount = 0
     },
-    finish() {
+    goBack() {
       this.$refs.cropper.getCropData((base64) => {
-        // console.log('base64.....', base64)
-         this.$emit('finish',base64)
+        this.$emit('finish', base64)
       })
     }
   }
