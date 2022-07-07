@@ -31,7 +31,7 @@
       </div>
     </div>
 
-    <SubmitPicture v-if="showSubmitPanel" @returnGuidePage="returnGuidePage"></SubmitPicture>
+    <SubmitPicture v-if="showSubmitPanel" :facePicture.sync="facePicture" @returnGuidePage="returnGuidePage"></SubmitPicture>
   </div>
 </template>
 
@@ -48,6 +48,8 @@ export default {
   data() {
     return {
       showSubmitPanel: false,
+      file: '',
+      facePicture: 'aa',
       errorPicList: [
         { url: require('@/assets/image/error-demonstration1.png'), desc: '五官遮挡'},
         { url: require('@/assets/image/error-demonstration2.png'), desc: '光线太暗'},
@@ -57,10 +59,15 @@ export default {
     }
   },
   methods: {
-    afterRead(file) {
+    afterRead(e) {
       this.showSubmitPanel = true
-      console.log('???????')
-      console.log('file.......', file)
+      const that = this
+      // this.file = file
+       let reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0])
+        reader.onload = function () { 
+          that.facePicture = this.result
+        }
     },
     returnGuidePage() {
        this.showSubmitPanel = false
