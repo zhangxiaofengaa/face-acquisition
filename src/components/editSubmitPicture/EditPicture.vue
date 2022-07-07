@@ -1,7 +1,7 @@
 <template>
   <div class="edit-picture">
     <vue-cropper
-      :img="src"
+      :img="facePicture"
       ref="cropper"
       :outputSize="option.outputSize"
       :outputType="option.outputType"
@@ -22,12 +22,13 @@
       :enlarge="option.enlarge"
       :mode="option.mode"
       @realTime="realTime"
+      @cropMoving="cropMoving"
     ></vue-cropper>
     <img :src="rotate" class="rotate" @click="rotateLeft" />
     <div class="btn-main">
       <div class="font-btn">取消</div>
-      <div class="font-btn" :class="{'color-gray': edited}">还原</div>
-      <van-button type="info" size="small">完成</van-button>
+      <div class="font-btn" :class="{'color-gray': !openReduction}" @click="reset">还原</div>
+      <van-button type="info" size="small" @click="finish">完成</van-button>
     </div>
   </div>
 </template>
@@ -44,7 +45,7 @@ export default {
     VueCropper
   },
   props: {
-    picture: {
+    facePicture: {
       type: String,
       default: ''
     }
@@ -52,7 +53,7 @@ export default {
   data() {
     return {
       rotate,
-      edited: false,
+      openReduction: false,
       src: 'https://ts1.cn.mm.bing.net/th?id=OIP-C.6Lv1RQrwV88Jz3Mz82doIgHaD_&w=340&h=183&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2',
       option: {
         img: '', // 裁剪图片的地址 url 地址, base64, blob
@@ -67,26 +68,14 @@ export default {
         fixed: false,
         canMove: false, // 上传图片是否可以移动
         canMoveBox: true, // 截图框能否拖动
-        original: true, // 上传图片按照原始比例渲染
+        original: false, // 上传图片按照原始比例渲染
         centerBox: true, // 截图框是否被限制在图片里面
-        infoTrue: true, // true 为展示真实输出图片宽高 false 展示看到的截图框宽高
+        infoTrue: false, // true 为展示真实输出图片宽高 false 展示看到的截图框宽高
         full: true, // 是否输出原图比例的截图
         enlarge: '1', // 图片根据截图框输出比例倍数
-        mode: 'auto', // 图片默认渲染方式 contain , cover, 100px, 100% auto
+        mode: '90% auto%', // 图片默认渲染方式 contain , cover, 100px, 100% auto
       },
-    }
-  },
-  watch: {
-    'option.autoCropWidth': {
-      handler(val) {
-        console.log('=========', val)
-        if (!this.edited) this.edited = true
-      }
-    },
-    'option.autoCropHeight': {
-      handler() {
-        if (!this.edited) this.edited = true
-      }
+      cropMovingCount: 0,
     }
   },
   mounted() {
@@ -94,10 +83,33 @@ export default {
   methods: {
     rotateLeft() {
       this.$refs.cropper.rotateLeft()
+      this.openReduction = true
     },
     realTime(data) {
-      this.previews = data
+      if (data.h > 200 || data.w > 200) {
+        this.openReduction = true
+      }
+      // this.previews = data
     },
+    cropMoving() {
+      // 进页面第一次没编辑就会触发，所以大于1时开启还原
+      this.cropMovingCount++
+      if (this.cropMovingCount > 1) {
+        this.openReduction = true
+      }
+      
+    },
+    reset() {
+      this.$refs.cropper.refresh()
+      this.openReduction = false
+      this.cropMovingCount = 0
+    },
+    finish() {
+      this.$refs.cropper.getCropData((base64) => {
+        // console.log('base64.....', base64)
+         this.$emit('finish',base64)
+      })
+    }
   }
 }
 </script>

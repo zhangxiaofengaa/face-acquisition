@@ -4,7 +4,7 @@
       <div class="submit-panel" >
         <div class="pre" @click="returnGuidePage"></div>
         <div class="picture">
-          <img :src="src" class="img" />
+          <img :src="facePicture" class="img" />
         </div>
         <div class="edit-submit">
           <span class="edit" @click="edit">编辑</span>
@@ -12,7 +12,7 @@
         </div>
       </div>
     </van-overlay>
-    <EditPicture :picture="src" v-else></EditPicture>
+    <EditPicture :facePicture="facePicture" @finish="finish" v-else></EditPicture>
   </div>
 </template>
 <script>
@@ -23,6 +23,12 @@ export default {
   components: {
     [Overlay.name]: Overlay,
     [Button.name]: Button
+  },
+  props: {
+    facePicture: {
+      type: String,
+      default: ''
+    }
   },
   data() {
     return {
@@ -37,6 +43,11 @@ export default {
     },
     returnGuidePage() {
       this.$emit('returnGuidePage')
+    },
+    finish(val) {
+      console.log('val',val)
+      this.$emit('update:facePicture', val)
+      this.showSubmit = true
     }
   }
 }
