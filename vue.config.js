@@ -33,10 +33,10 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     proxy: {
-      '/dev-api': {
+      '/apis': {
         target: mockURL,
         pathRewrite: {
-          '^/dev-api': '/'
+          '^/apis': ''
         },
         secure: false,
         changeOrigin: true  
@@ -71,7 +71,10 @@ module.exports = {
       )
     }
     config.resolve.modules.add(path.resolve('node_modules')).prepend('node_modules').clear()
-    config.resolve.alias.set('@', resolve('src')).set('@imgs', resolve('src/assets/image'))
+    config.resolve.alias
+    .set('@', resolve('src'))
+    .set('@imgs', resolve('src/assets/image'))
+    .set('~config', resolve('config'))
   },
     // 在生产环境下为 Babel 和 TypeScript 使用 `thread-loader`
   // 在多核机器下会默认开启。

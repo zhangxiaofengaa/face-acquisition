@@ -8,15 +8,15 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/Face',
+    path: '/',
     name: 'Face',
     meta: { title: '人脸采集' },
     keepAlive: true,
     component: r => require.ensure([], () => r(require('@/views/Face/index.vue')), 'face')
   },
   {
-    path: '/',
-    // path: '/student-work-no',
+    // path: '/',
+    path: '/student-work-no',
     name: 'StudentWorkNo',
     meta: { title: '学工号采集' },
     component: r => require.ensure([], () => r(require('@/views/StudentWorkNo/index.vue')), 'face')

@@ -1,14 +1,17 @@
 module.exports = {
   local: {
-    baseURL: '/dev-api',
-    mockURL: 'http://0.0.0.0:7001'
+    baseURL: '/apis',
+    mockURL: 'http://192.168.51.176',
+    unifiedLoginURL: 'http://xnzhsg.szhtxx.cn:18081'
   },
   development: {
-    baseURL: '/dev-api',
-    mockURL: 'https://api.xwhx.top'
+    baseURL: '/apis',
+    mockURL: 'http://192.168.51.176',
+    unifiedLoginURL: 'http://xnzhsg.szhtxx.cn:18081'
   },
   production: {
     baseURL: 'https://api.xwhx.top',
-    mockURL: 'https://api.xwhx.top'
+    mockURL: 'https://api.xwhx.top',
+    unifiedLoginURL: 'http://xnzhsg.szhtxx.cn:18081'
   }
 }

@@ -15,16 +15,31 @@
   </div>
 </template>
 <script>
+import config from '~config'
+import { uploadOcrIdImage } from '@/api/face'
+
+const { unifiedLoginURL } = config[process.env.NODE_ENV]
+
 export default {
   name: 'Auth',
+  mounted() {
+    uploadOcrIdImage().then(res => {
+      console.log('请求接口....', res)
+    })
+  },
   methods: {
     jumpCommonProblemPage() {
       this.$router.push('common-problem')
     },
     // 跳转学工号登录页面
-    jumpStudentWorkNoPage() {
+    async jumpStudentWorkNoPage() {
       // 先对接统一登陆 成功后跳转页面
-      this.$router.push('student-work-no')
+      await this.logout()
+      window.location.href = `${unifiedLoginURL}/bioDev/gateway/auth/personFaceCollection/login`
+      // this.$router.push('student-work-no')
+    },
+    logout() {
+       window.location.href = 'http://ids.zfc.edu.cn/authserver/logout'
     }
   },
 }

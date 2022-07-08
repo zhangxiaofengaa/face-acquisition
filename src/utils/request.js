@@ -1,7 +1,7 @@
 import axios from 'axios'
 import store from '@/store'
 
-const config = require('../../config')
+import config from '~config'
 const { baseURL } = config[process.env.NODE_ENV]
 
 // 创建axios实例
@@ -14,31 +14,26 @@ const service = axios.create({
 // 请求拦截器
 service.interceptors.request.use(
   config => {
-    if (store.state.user.token) {
+    if (store.state.token) {
       config.headers['Authorization'] = store.getters.token
     }
     return config
   },
   error => {
-    console.log(error)
+    console.log('error',error)
     return Promise.reject(error)
+    // console.error(error.message)
   }
 )
 
 // 响应拦截器
 service.interceptors.response.use(
-  /**
-   * If you want to get http information such as headers or status
-   * Please return  response => response
-  */
-
-  /**
-   * Determine the request status by custom code
-   * Here is just an example
-   * You can also judge the status by HTTP Status Code
-   */
   response => {
-    return response.data;
+    return response;
+  },
+  error => {
+    console.error(error)
+    return Promise.reject(error)
   }
 )
 

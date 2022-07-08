@@ -22,7 +22,7 @@
         <span class="txt">开始采集</span>
         <input
           class="upload-card-input"
-          ref="upload_file"
+          ref="uploadFile"
           type="file"
           name="pic"
           accept="image/jpeg, image/jpg, image/png"
@@ -60,17 +60,20 @@ export default {
   },
   methods: {
     afterRead(e) {
-      this.showSubmitPanel = true
       const that = this
-      // this.file = file
-       let reader = new FileReader();
+      if (e.target.files[0]) {
+        let reader = new FileReader();
         reader.readAsDataURL(e.target.files[0])
-        reader.onload = function () { 
+        reader.onload = function () {
+          that.showSubmitPanel = true 
           that.facePicture = this.result
         }
+      }
     },
     returnGuidePage() {
-       this.showSubmitPanel = false
+      this.showSubmitPanel = false
+      this.facePicture = null
+      this.$refs.uploadFile.click()
     }
   }
 }

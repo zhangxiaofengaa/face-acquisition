@@ -28,7 +28,7 @@
     <div class="btn-main">
       <div class="font-btn">取消</div>
       <div class="font-btn" :class="{'color-gray': !openReduction}" @click="reset">还原</div>
-      <van-button type="info" size="small" @click="goBack">完成</van-button>
+      <div class="font-btn" @click="goBack">完成</div>
     </div>
   </div>
 </template>

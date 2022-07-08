@@ -12,6 +12,17 @@
       width: 100%;
       object-fit: cover;
     }
+
+    .encrypted-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .display-hide-icon {
+        width: 34px;
+        height: 34px;
+      }
+    }
   }
   .bottom-library-photos-main {
     width: 188px;
