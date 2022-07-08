@@ -22,7 +22,7 @@
 
 <script>
 import { Auth } from './components'
-import { Form, Field, Button, Uploader, Icon, ImagePreview } from 'vant'
+import { Form, Field, Button, Uploader, Icon, ImagePreview, Dialog, Notify } from 'vant'
 import { EventBus } from "@/utils/eventBus"
 
 export default {
@@ -34,6 +34,8 @@ export default {
     [Uploader.name]: Uploader,
     [Icon .name]: Icon, 
     [ImagePreview.name]: ImagePreview,
+    [Dialog.name]: Dialog,
+    [Notify.Component.name]: Notify.Component,
     Auth
   },
   data() {
@@ -60,6 +62,18 @@ export default {
     EventBus.$on("imgUrl", (msg) => {
       this.faceImgUrl = msg
     })
+  },
+  mounted() {
+    // Notify({
+    //   type: 'warning',
+    //   message: '采集前请先确保该人员的身份证号存在于生物库平台中',
+    // })
+    // Dialog.alert({
+    //   title: '采集信息说明',
+    //   confirmButtonText: '我已知晓',
+    //   messageAlign: 'left',
+    //   message: '一、人脸认证非唯一通行方式，用户拒绝人脸信息采集的，还可刷卡通行。\n二、系统郑重承诺，采集的身份证、个人图像信息仅用作人证核验与校内门禁通行，不外泄、不作他用。\n三、如完成信息采集后，选择放弃人脸识别通行方式，可联系系统管理员收回相应权限。',
+    // })
   },
   methods: {
     uploader() {
@@ -112,6 +126,12 @@ export default {
       color: $--color-white;
       font-size: 34px;
       margin: 5px;
+    }
+  }
+
+  .van-dialog {
+    .van-dialog__content {
+      color: $--color-gray2 !important;
     }
   }
 }

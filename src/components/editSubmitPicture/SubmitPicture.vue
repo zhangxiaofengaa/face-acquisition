@@ -94,15 +94,11 @@ export default {
 
   .picture {
     width: 100%;
+    height: 0;
     flex: 1;
-    position: relative;
     .img {
-      width: 100%;
-      height: auto;
-      vertical-align: middle;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
+      width: auto;
+      height: 100%;
     }
   }
 
@@ -110,7 +106,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 30px 30px 40px;
+    margin: 97px 30px 30px 40px;
 
     .edit {
       color: $--color-white;
