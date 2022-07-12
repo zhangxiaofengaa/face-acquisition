@@ -1,6 +1,7 @@
 module.exports = {
   local: {
     baseURL: '/apis',
+    // mockURL: 'http://192.168.80.220:18081',
     mockURL: 'http://192.168.51.176',
     unifiedLoginURL: 'http://xnzhsg.szhtxx.cn:18081'
   },

@@ -1,0 +1,33 @@
+.page-success {
+  text-align: center;
+  padding-top: 50px;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+
+  .icon {
+    width: 68px;
+    height: 68px;
+    background-image: url('../../assets/images/success.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0 auto;
+    margin-bottom: 14px;
+  }
+
+  .tips {
+    color: $--color-gray1;
+    font-size: $--font-size-large;
+    font-weight: 500;
+  }
+  
+  .submit-btn {
+    height: 64px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 10px 16px;
+    box-sizing: border-box;
+    background-color: $--background-white;
+  }
+}

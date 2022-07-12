@@ -73,7 +73,7 @@ module.exports = {
     config.resolve.modules.add(path.resolve('node_modules')).prepend('node_modules').clear()
     config.resolve.alias
     .set('@', resolve('src'))
-    .set('@imgs', resolve('src/assets/image'))
+    .set('@imgs', resolve('src/assets/images'))
     .set('~config', resolve('config'))
   },
     // 在生产环境下为 Babel 和 TypeScript 使用 `thread-loader`
@@ -93,11 +93,7 @@ module.exports = {
   css: {
     loaderOptions: {
       scss: {
-        prependData: () => {
-          return `
-            @import "@/styles/var.scss";
-          `
-        }
+        prependData: ` @import "@/styles/var.scss"; `
       }
     }
   }

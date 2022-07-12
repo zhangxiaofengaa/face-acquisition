@@ -1,14 +1,55 @@
 <template>
   <div class="face-acquisition-page">
-    <Auth :isPicLoading.sync="isPicLoading"></Auth>
+    <Auth :isPicLoading.sync="isPicLoading" @getInfo="getInfo"></Auth>
     <van-form @submit="onSubmit">
-      <van-field required disabled v-model="form.username" name="人员姓名" label="人员姓名" placeholder="根据身份证自动识别" />
-      <van-field required disabled v-model="form.password" name="身份证号" label="身份证号" placeholder="根据身份证自动识别" />
+      <!-- <van-field
+        required
+        readonly
+        v-model="form.personName"
+        name="人员姓名"
+        label="人员姓名"
+        placeholder="根据身份证自动识别"
+        :error="errorTips.errorPersonName"
+      />
+      <van-field
+        required
+        readonly
+        v-model="form.idNum"
+        name="身份证号"
+        label="身份证号"
+        placeholder="根据身份证自动识别"
+        :error="errorTips.errorIdNum"
+      /> -->
+      <van-field
+          v-model.trim="form.personName"
+          ref="personName"
+          name="姓名"
+          label="姓名"
+          placeholder="自动识别身份证信息"
+          required
+          maxlength="50"
+          :error="errorInput"
+          :readonly="formDisabled.personName"
+          @blur="handleFormFocus('personName', false)"
+        >
+          <span v-if="showEdit" class="color-orange" slot="button" @click.prevent="handleFormFocus('personName')">修改</span>
+        </van-field>
+        <van-field
+          v-model.trim="form.idNum"
+          name="身份证号"
+          label="身份证号"
+          placeholder="自动识别身份证信息"
+          required
+          :error="errorInput"
+          :readonly="true"
+        />
       <van-field required v-model="form.pic" name="人脸照片" label="人脸照片">
         <template #input>
           <div class="uploader-entrance" @click="jumpGuidePage" v-if="!faceImgUrl"></div>
           <div class="face-pic-main" v-else>
-            <div class="delete-button" @click="deletePic"><van-icon name="cross" class="delete-icon" /></div>
+            <div class="delete-button" @click="deletePic">
+              <van-icon name="cross" class="delete-icon" />
+            </div>
             <img :src="faceImgUrl" class="pic" @click="imagePreview(faceImgUrl)" />
           </div>
         </template>
@@ -27,7 +68,6 @@ import './index.scss'
 import { Auth } from './components'
 import { Form, Field, Button, Uploader, Icon, ImagePreview, Dialog, Notify, Loading } from 'vant'
 import { EventBus } from "@/utils/eventBus"
-
 export default {
   name: 'Face',
   components: {
@@ -35,7 +75,7 @@ export default {
     [Field.name]: Field,
     [Button.name]: Button,
     [Uploader.name]: Uploader,
-    [Icon .name]: Icon, 
+    [Icon.name]: Icon,
     [ImagePreview.name]: ImagePreview,
     [Dialog.name]: Dialog,
     [Notify.Component.name]: Notify.Component,
@@ -45,13 +85,22 @@ export default {
   data() {
     return {
       form: {
-        username: '',
-        password: '',
+        personName: '',
+        idNum: '',
         pic: '',
       },
+      formDisabled: {
+        personName: true
+      },
+      errorTips: {
+        errorPersonName: false,
+        errorIdNum: false
+      },
+      showEdit: false,
       faceImgUrl: 'https://ts1.cn.mm.bing.net/th?id=OIP-C.6Lv1RQrwV88Jz3Mz82doIgHaD_&w=340&h=183&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2',
       fileList: [],
       isPicLoading: false,
+      errorInput: false
     }
   },
   computed: {
@@ -69,6 +118,7 @@ export default {
     })
   },
   mounted() {
+    console.log('------', this.$store.state)
     Notify({
       type: 'warning',
       message: '采集前请先确保该人员的身份证号存在于生物库平台中'
@@ -82,10 +132,39 @@ export default {
   },
   methods: {
     uploader() {
-// 
+      // 
     },
     beforeRead() {
-      console.log('???????????')
+      //console.log('???????????')
+    },
+    getInfo(data) {
+      console.log('data', data)
+      const { idNum, personName } = data
+
+      if (!!personName ) {
+        this.form.personName = personName
+      } else {
+        this.errorTips.errorPersonName = true
+        this.form.personName = '识别失败，请重新上传'
+      }
+
+      if (!!idNum) {
+        this.form.idNum = idNum
+      } else {
+        this.errorTips.errorIdNum = true
+        this.form.idNum = '识别失败，请重新上传'
+      }
+      
+      // this.showEdit = !!data.idNumber
+       this.form.idNum = true
+    },
+    handleFormFocus(name, canFocus = true) {
+      this.formDisabled[name] = !canFocus
+      this.$nextTick(() => {
+        if (canFocus) {
+          this.$refs[name].focus()
+        }
+      })
     },
     imagePreview(images) {
       ImagePreview({

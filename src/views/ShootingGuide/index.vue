@@ -1,7 +1,7 @@
 <template>
   <div class="guide-page">
     <div class="correct-panel">
-      <img src="@/assets/image/demonstration.png" class="correct-pic" />
+      <img src="@/assets/images/demonstration.png" class="correct-pic" />
       <div>
         <div class="two-level-title">正确示范</div>
         <div class="desc-content">请衣着整齐，平视镜头，并正对光源，头部约占照片高度的2/3</div>
@@ -51,10 +51,10 @@ export default {
       file: '',
       facePicture: 'aa',
       errorPicList: [
-        { url: require('@/assets/image/error-demonstration1.png'), desc: '五官遮挡'},
-        { url: require('@/assets/image/error-demonstration2.png'), desc: '光线太暗'},
-        { url: require('@/assets/image/error-demonstration3.png'), desc: '模糊'},
-        { url: require('@/assets/image/error-demonstration4.png'), desc: '侧对镜头'},
+        { url: require('@/assets/images/error-demonstration1.png'), desc: '五官遮挡'},
+        { url: require('@/assets/images/error-demonstration2.png'), desc: '光线太暗'},
+        { url: require('@/assets/images/error-demonstration3.png'), desc: '模糊'},
+        { url: require('@/assets/images/error-demonstration4.png'), desc: '侧对镜头'},
       ]
     }
   },

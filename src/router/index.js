@@ -32,6 +32,12 @@ const routes = [
     meta: { title: '常见问题' },
     component: r => require.ensure([], () => r(require('@/views/CommonProblem/index.vue')), 'face')
   },
+  {
+    path: '/success',
+    name: 'Success',
+    meta: { title: '提示页' },
+    component: r => require.ensure([], () => r(require('@/views/Success/index.vue')), 'face')
+  },
   // {
   //   path: '/',
   //   // path: '/shooting-guide',

@@ -10,15 +10,14 @@ export default new Vuex.Store({
   },
   mutations: {
     setToken(state, data) {
-      state.token = data.token
+      state.token = data
       sessionStorage.setItem('token', state.token)
     },
     setUserInfo(state, data) {
       state.userInfo = data
     },
   },
-  actions: {
-  },
+  actions:  {},
   modules: {
   }
 })

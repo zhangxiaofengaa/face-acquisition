@@ -22,7 +22,7 @@
   }
 
   .card {
-    background: #F5F7F9 url(../../../../assets/image/card.png) no-repeat center;
+    background: #F5F7F9 url(../../../../assets/images/card.png) no-repeat center;
     background-size: 224px 148px;
     width: 246px;
     height: 166px;
@@ -32,6 +32,48 @@
       width: 100%;
       height: 100%;
       opacity: 0;
+    }
+
+    .card-img-main {
+      width: 100%;
+      height: 100%;
+      background: $--color-gray5;
+      background-image: url('../../../../assets/images/error-img.png');
+      background-repeat: no-repeat;
+      background-size: 47px 47px;
+      background-position: center;
+      position: relative;
+
+      .card-img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+
+      .again-upload-btn {
+        width: 78px;
+        height: 22px;
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 10px 0px 0px 0px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        z-index: 9;
+        color: $--color-white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .upload-again {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          opacity: 0;
+        }
+      }
     }
   }
 

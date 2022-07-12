@@ -5,28 +5,23 @@
         <img :src="src || defaultImg" class="bottom-library-photos" @click="imagePreview(src)" />
       </div>
       <div>
-        <div class="one-level-title">李*毅</div>
-        <div class="department-class">美术学院美术学院 / 油画专业油画 / 18级 / 1班</div>
+        <div class="one-level-title">{{userInfo.userName}}</div>
+        <div class="department-class">{{userInfo.organizationName}}</div>
         <div class="encrypted-info">
           <div class="info">
             <div class="info-key">学工号：</div>
-            <div class="info-val">{{studentWorkNumber}}</div>
+            <div class="info-val">{{userInfo.wkNo}}</div>
           </div>
-          <img
-            :src="seeStudentWorkNumber ? displayImg : hideImg"
-            class="display-hide-icon"
-            @click="see('seeStudentWorkNumber')"
-          />
         </div>
         <div class="encrypted-info">
           <div class="info">
             <div class="info-key">身份证号：</div>
-            <div class="info-val">{{idCardxxx}}</div>
+            <div class="info-val">{{idNumber}}</div>
           </div>
           <img
             :src="seeIDNumber ? displayImg : hideImg"
             class="display-hide-icon"
-            @click="see('seeIDNumber')"
+            @click="see"
           />
         </div>
       </div>
@@ -58,6 +53,7 @@ import hideImg from '@imgs/hide.png'
 
 import { Form, Field, Button, Icon, ImagePreview } from 'vant'
 import { EventBus } from "@/utils/eventBus"
+import { uploadFaceImage, verifyImageQuality } from '@/api/studentWorkNo'
 
 export default {
   name: 'StudentWorkNo',
@@ -75,17 +71,17 @@ export default {
       hideImg,
       faceImgUrl: '',
       src: 'https://ts1.cn.mm.bing.net/th?id=OIP-C.6Lv1RQrwV88Jz3Mz82doIgHaD_&w=340&h=183&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2',
-      seeStudentWorkNumber: false,
       seeIDNumber: false,
       idCard: '230506199512091623',
-      studentWorkNumber: '11222211'
+      studentWorkNumber: '11222211',
+      userInfo: {}
     }
   },
   computed: {
     disabledSubmit() {
       return !this.faceImgUrl ? true : false
     },
-    idCardxxx() {
+    idNumber() {
       if (!this.seeIDNumber) {
         return this.idCard.replace(/^(\d{6})\d+(\d{4})$/, "$1******$2")
       } else {
@@ -98,6 +94,7 @@ export default {
       this.faceImgUrl = msg
     })
     this.getUserInfo()
+     console.log('..........', this.$store.state)
   },
   methods: {
     imagePreview(images) {
@@ -107,7 +104,19 @@ export default {
       })
     },
     onSubmit() {
-
+      const data = {
+        code: this.userInfo.wkNo,
+        faceImageBase64: this.faceImgUrl
+      }
+      uploadFaceImage(data).then(res => {
+        console.log('res', res)
+      })
+    },
+    // 图片质量检测
+    pictureQualityInspection() {
+      verifyImageQuality(this.faceImgUrl).then(res => {
+        console.log('图片质量检测.........', res)
+      })
     },
     jumpGuidePage() {
       // 跳转指引页面
@@ -116,26 +125,31 @@ export default {
     deletePic() {
       this.faceImgUrl = null
     },
-    see(val) {
-      // val 改变图标状态  到时还需要加入解密的字段
-      this[val] = !this[val]
+    see() {
+      this.seeIDNumber = !this.seeIDNumber
     },
     getUserInfo() {
       if (window.location.search) {
         const params = new URLSearchParams(window.location.search)
         const wkNo = params.get('wkNo')
         const userName = params.get('name')
+        const sex = params.get('sex')
         const organizationName = params.get('organizationName')
         const personType = params.get('personType')
-        const xxx = params.get('basicUrl')
+        const photoUrl = params.get('basicUrl')
+        const idNumber = params.get('idNumber')
         const token = params.get('token')
 
-        // const url = location.href.split("?")[0]
-        // window.history.pushState('object', document.title, url)
-        // this.src = params.get('basicUrl')
+        const userInfo = { wkNo, sex, userName, organizationName, personType, photoUrl, idNumber }
+
+        const url = location.href.split("?")[0]
+        window.history.pushState('object', document.title, url)
+
         sessionStorage.setItem('token', token)
-        this.$store.commit('setUserInfo', { wkNo, userName, organizationName, personType })
-        console.log('params...', params)
+        this.$store.commit('setUserInfo', userInfo)
+        this.$store.commit('setToken', token)
+        this.userInfo = userInfo
+        console.log('idNumber', idNumber)
       }
 
     }

@@ -14,22 +14,18 @@
 .van-cell__title {
   width: 105px;
   font-size: $--font-size-medium;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   margin-right: 5px;
   color: $--color-gray1  !important;
 }
+// .van-field__control {
+//   color: $--color-gray1  !important;
+//   font-size: $--font-size-medium;
+// }
 
-.van-field__control {
-  font-size: $--font-size-medium  !important;
-  color: $--color-gray2  !important;
-}
-
-.van-field__control::-webkit-input-placeholder {
-  color: $--color-gray3  !important;
-  font-size: $--font-size-medium;
-}
+// .van-field--error .van-field__control {
+//   // color: $--color-red !important;
+//   color: pink !;
+// }
 
 .van-cell--required .van-cell__title::after {
   color: #F76260;
@@ -38,11 +34,6 @@
 
 .van-cell--required::before {
   content: none !important;
-}
-
-.van-cell__value {
-  font-size: $--font-size-medium;
-  color: $--color-gray3;
 }
 
 
@@ -63,32 +54,7 @@
   font-size: $--font-size-large;
 }
 
-// notify
-// .van-notify {
-//   padding: 20px !important;
-// }
-
-// dialog
-.van-dialog {
-  width: 500px !important;
-
-  .van-dialog__message,
-  .van-dialog__header {
-    line-height: unset;
-  }
-
-  .van-dialog__header {
-    height: 50px;
-    font-size: $--font-size-large;
-  }
-
-  .van-dialog__footer {
-    height: 100px !important;
-    line-height: 100px !important;
-  }
-
-  .van-dialog__confirm {
-    color: $--color-blue;
-    height: 100%;
-  }
+.van-dialog__confirm {
+  color: $--color-blue !important;
+  height: 100%;
 }
