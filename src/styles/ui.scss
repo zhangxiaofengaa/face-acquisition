@@ -1,31 +1,33 @@
 .van-cell {
-  padding: 28px 32px !important;
+  height: auto;
+  padding: 14px 16px !important;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .van-cell::after {
-  border-bottom: 1px solid $--color-gray4 !important;
+  border-bottom: 1px solid $--color-gray4  !important;
   right: 0 !important;
 }
+
 .van-cell__title {
-  width: 209px;
-  font-size: 32px;
-  min-height: 45px;
+  width: 105px;
+  font-size: $--font-size-medium;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 10px;
-  color: $--color-gray1 !important;
+  margin-right: 5px;
+  color: $--color-gray1  !important;
 }
 
 .van-field__control {
-  font-size: $--font-size-medium !important;
-  color: $--color-gray2 !important;
+  font-size: $--font-size-medium  !important;
+  color: $--color-gray2  !important;
 }
 
 .van-field__control::-webkit-input-placeholder {
-  color: $--color-gray3 !important;
+  color: $--color-gray3  !important;
   font-size: $--font-size-medium;
 }
 
@@ -46,15 +48,47 @@
 
 // button
 .van-button--info {
-  background-color: $--color-blue !important;
+  background-color: $--color-blue  !important;
   border: none !important;
 }
+
 .van-button--small {
   min-width: 146px !important;
   height: 70px !important;
   padding: 0 42px 0 36px !important;
-  
+
 }
+
 .van-button__text {
   font-size: $--font-size-large;
+}
+
+// notify
+// .van-notify {
+//   padding: 20px !important;
+// }
+
+// dialog
+.van-dialog {
+  width: 500px !important;
+
+  .van-dialog__message,
+  .van-dialog__header {
+    line-height: unset;
+  }
+
+  .van-dialog__header {
+    height: 50px;
+    font-size: $--font-size-large;
+  }
+
+  .van-dialog__footer {
+    height: 100px !important;
+    line-height: 100px !important;
+  }
+
+  .van-dialog__confirm {
+    color: $--color-blue;
+    height: 100%;
+  }
 }

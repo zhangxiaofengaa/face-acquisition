@@ -1,0 +1,22 @@
+.face-acquisition-page {
+  .van-dialog {
+    .van-dialog__content {
+      color: $--color-gray2  !important;
+    }
+  }
+
+  .loading {
+    padding: 20px;
+    width: fit-content;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    .van-loading__text {
+      color: $--color-white;
+    }
+  }
+}

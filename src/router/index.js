@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { isDD, getCode } from '@/utils/dingTalk'
+import { isApp } from '@/utils/platform'
 import store from '@/store'
 
-isDD()
 Vue.use(VueRouter)
 
 const routes = [
@@ -49,13 +48,18 @@ const router = new VueRouter({
 })
 
 // router.beforeEach(async (to, from, next) => {
-//   if(store.state.userInfo) next()
-//   if (isDD) {
-//     await getCode(store.dispatch('getUserInfo'))
+//   if (isApp()) {
+//     console.log('App内打开')
 //   } else {
-// // 
+//     console.log('浏览器打开')
+//     next()
 //   }
 // })
 
+router.afterEach(to => {
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+})
 
 export default router

@@ -10,7 +10,7 @@
         <div class="encrypted-info">
           <div>
             <span class="info-key">学工号：</span>
-            <span class="info-val">209***456</span>
+            <span class="info-val">{{studentWorkNumber}}</span>
           </div>
           <img
             :src="seeStudentWorkNumber ? displayImg : hideImg"
@@ -21,7 +21,7 @@
         <div class="encrypted-info">
           <div>
             <span class="info-key">身份证号：</span>
-            <span class="info-val">234************189</span>
+            <span class="info-val">{{idCardxxx}}</span>
           </div>
           <img
             :src="seeIDNumber ? displayImg : hideImg"
@@ -77,20 +77,26 @@ export default {
       src: 'https://ts1.cn.mm.bing.net/th?id=OIP-C.6Lv1RQrwV88Jz3Mz82doIgHaD_&w=340&h=183&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2',
       seeStudentWorkNumber: false,
       seeIDNumber: false,
+      idCard: '230506199512091623',
+      studentWorkNumber: '11222211'
     }
   },
   computed: {
     disabledSubmit() {
       return !this.faceImgUrl ? true : false
+    },
+    idCardxxx() {
+      if (!this.seeIDNumber) {
+        return this.idCard.replace(/^(\d{6})\d+(\d{4})$/, "$1******$2")
+      } else {
+        return this.idCard
+      }
     }
   },
   created() {
     EventBus.$on("imgUrl", (msg) => {
       this.faceImgUrl = msg
     })
-    // const params = new URLSearchParams(window.location.search)
-    // const wkNo = params.get('wkNo')
-    // console.log('===*********', params.get('wkNo'))
     this.getUserInfo()
   },
   methods: {
@@ -121,13 +127,15 @@ export default {
         const userName = params.get('name')
         const organizationName = params.get('organizationName')
         const personType = params.get('personType')
+        const xxx = params.get('basicUrl')
         const token = params.get('token')
 
-        const url = location.href.split("?")[0]
-        window.history.pushState('object', document.title, url)
+        // const url = location.href.split("?")[0]
+        // window.history.pushState('object', document.title, url)
         // this.src = params.get('basicUrl')
         sessionStorage.setItem('token', token)
         this.$store.commit('setUserInfo', { wkNo, userName, organizationName, personType })
+        console.log('params...', params)
       }
 
     }

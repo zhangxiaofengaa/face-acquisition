@@ -1,6 +1,6 @@
 <template>
   <div class="face-acquisition-page">
-    <Auth></Auth>
+    <Auth :isPicLoading.sync="isPicLoading"></Auth>
     <van-form @submit="onSubmit">
       <van-field required disabled v-model="form.username" name="人员姓名" label="人员姓名" placeholder="根据身份证自动识别" />
       <van-field required disabled v-model="form.password" name="身份证号" label="身份证号" placeholder="根据身份证自动识别" />
@@ -17,12 +17,15 @@
         <van-button block type="info" :disabled="disabledSubmit" native-type="submit">提交</van-button>
       </div>
     </van-form>
+
+    <van-loading class="loading" v-if="isPicLoading">上传中...</van-loading>
   </div>
 </template>
 
 <script>
+import './index.scss'
 import { Auth } from './components'
-import { Form, Field, Button, Uploader, Icon, ImagePreview, Dialog, Notify } from 'vant'
+import { Form, Field, Button, Uploader, Icon, ImagePreview, Dialog, Notify, Loading } from 'vant'
 import { EventBus } from "@/utils/eventBus"
 
 export default {
@@ -36,6 +39,7 @@ export default {
     [ImagePreview.name]: ImagePreview,
     [Dialog.name]: Dialog,
     [Notify.Component.name]: Notify.Component,
+    [Loading.name]: Loading,
     Auth
   },
   data() {
@@ -46,7 +50,8 @@ export default {
         pic: '',
       },
       faceImgUrl: 'https://ts1.cn.mm.bing.net/th?id=OIP-C.6Lv1RQrwV88Jz3Mz82doIgHaD_&w=340&h=183&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2',
-      fileList: []
+      fileList: [],
+      isPicLoading: false,
     }
   },
   computed: {
@@ -64,10 +69,10 @@ export default {
     })
   },
   mounted() {
-    // Notify({
-    //   type: 'warning',
-    //   message: '采集前请先确保该人员的身份证号存在于生物库平台中',
-    // })
+    Notify({
+      type: 'warning',
+      message: '采集前请先确保该人员的身份证号存在于生物库平台中'
+    })
     // Dialog.alert({
     //   title: '采集信息说明',
     //   confirmButtonText: '我已知晓',
@@ -101,38 +106,3 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-.face-pic-main {
-  width: 160px;
-  height: 160px;
-  border-radius: 4px;
-  position: relative;
-  margin: 8px 0;
-
-  .pic {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .delete-button {
-    width: 44px;
-    height: 44px;
-    background-color: rgba(0, 0, 0, 0.7);
-    border-radius: 0px 4px 0px 4px;
-    position: absolute;
-    right: 0;
-
-    .delete-icon {
-      color: $--color-white;
-      font-size: 34px;
-      margin: 5px;
-    }
-  }
-
-  .van-dialog {
-    .van-dialog__content {
-      color: $--color-gray2 !important;
-    }
-  }
-}
-</style>
