@@ -4,13 +4,13 @@
       <div class="bottom-library-photos-main">
         <img :src="src || defaultImg" class="bottom-library-photos" @click="imagePreview(src)" />
       </div>
-      <div class="info">
+      <div>
         <div class="one-level-title">李*毅</div>
         <div class="department-class">美术学院美术学院 / 油画专业油画 / 18级 / 1班</div>
         <div class="encrypted-info">
-          <div>
-            <span class="info-key">学工号：</span>
-            <span class="info-val">{{studentWorkNumber}}</span>
+          <div class="info">
+            <div class="info-key">学工号：</div>
+            <div class="info-val">{{studentWorkNumber}}</div>
           </div>
           <img
             :src="seeStudentWorkNumber ? displayImg : hideImg"
@@ -19,9 +19,9 @@
           />
         </div>
         <div class="encrypted-info">
-          <div>
-            <span class="info-key">身份证号：</span>
-            <span class="info-val">{{idCardxxx}}</span>
+          <div class="info">
+            <div class="info-key">身份证号：</div>
+            <div class="info-val">{{idCardxxx}}</div>
           </div>
           <img
             :src="seeIDNumber ? displayImg : hideImg"

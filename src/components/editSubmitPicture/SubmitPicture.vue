@@ -75,17 +75,17 @@ export default {
   .pre {
     position: relative;
     background-color: $--background-white;
-    width: 42px;
-    height: 42px;
+    width: 21px;
+    height: 21px;
     border-radius: 50%;
-    margin: 65px 0 42px 32px;
+    margin: 32px 0 21px 16px;
   }
   .pre::before {
     content: '';
-    height: 12px;
-    width: 12px;
+    height: 6px;
+    width: 6px;
     border: solid $--color-black;
-    border-width: 2px 0 0 2px;
+    border-width: 1px 0 0 1px;
     transform: translate(-50%, -50%) rotate(-45deg);
     position: absolute;
     left: 60%;
@@ -108,7 +108,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 97px 30px 30px 40px;
+    margin: 49px 15px 15px 20px;
 
     .edit {
       color: $--color-white;

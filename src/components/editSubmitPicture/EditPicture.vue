@@ -122,14 +122,14 @@ export default {
     background-image: none;
   }
   .rotate {
-    width: 40px;
-    height: 40px;
-    margin-left: 43px;
-    margin-bottom: 102px;
+    width: 14px;
+    height: 14px;
+    margin-left: 22px;
+    margin-bottom: 51px;
   }
   .btn-main {
     z-index: 99;
-    padding: 0 32px 43px;
+    padding: 0 16px 22px;
     display: flex;
     justify-content: space-between;
     align-items: center;
